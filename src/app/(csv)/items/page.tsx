@@ -1,5 +1,6 @@
 "use client";
 
+import ItemCardSkeleton from "@/components/common/item-card-skeleton";
 import SortDropdown from "@/components/common/select-dropdown";
 import ItemList from "@/components/item-list";
 import {ItemProps, SortOrder} from "@/types";
@@ -11,14 +12,24 @@ import {
 import {useEffect, useState} from "react";
 
 export default function Items() {
+  const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<ItemProps[]>([]);
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.CreatedAt);
 
   useEffect(() => {
     const fetchItems = async () => {
-      const res = await fetch("/api/getCsvItems");
-      const data: ItemProps[] = await res.json();
-      setItems(data);
+      setIsLoading(true);
+      try {
+        const res = await fetch("/api/getCsvItems");
+        const data: ItemProps[] = await res.json();
+        setItems(data);
+      } catch (e) {
+      } finally {
+        //this artificial latency is just to showcase the skeleton loader. NOte: loading an external csv should not require this in order to achieve same.
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
+      }
     };
 
     fetchItems();
@@ -55,9 +66,17 @@ export default function Items() {
         />
       </div>
 
-      <div className="mt-10 px-[2em]">
-        <ItemList data={sortedItems} />
-      </div>
+      {isLoading ? (
+        <div className="mt-10 px-[2em] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {Array.from({length: 12}).map(() => (
+            <ItemCardSkeleton />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-10 px-[2em]">
+          <ItemList data={sortedItems} />
+        </div>
+      )}
     </div>
   );
 }
