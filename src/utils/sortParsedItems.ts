@@ -25,6 +25,7 @@ export const sortByFilenameAsc = (items: ItemProps[]): ItemProps[] => {
         const partsA = getFilenameParts(a.filename);
         const partsB = getFilenameParts(b.filename);
 
+        //TODO: figure out why abc.txt dose not attain its position as shown in the o/p sample of this task
         for (let i = 0; i < Math.max(partsA.length, partsB.length); i++) {
             const valA = partsA[i] ?? "";
             const valB = partsB[i] ?? "";
