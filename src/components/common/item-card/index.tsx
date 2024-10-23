@@ -7,10 +7,10 @@ const ItemCard = ({createdAt, filename}: ItemProps) => {
       <FileIcon />
 
       <div className="ml-2">
-        <h2 className="mb-1 text-[1em] text-gray-100 font-semibold">
+        <h2 className="text-[0.9em] text-gray-100">{createdAt}</h2>
+        <p className="mb-1 text-[1em] text-gray-100 font-semibold">
           {filename}
-        </h2>
-        <p className="text-[0.9em] text-gray-100">{createdAt}</p>
+        </p>
       </div>
     </div>
   );
