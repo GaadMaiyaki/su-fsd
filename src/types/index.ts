@@ -1,5 +1,5 @@
 export type ItemProps = {
-    createdAt: Date;
+    createdAt: string;
     filename: string;
 }
 

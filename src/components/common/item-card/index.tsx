@@ -10,9 +10,7 @@ const ItemCard = ({createdAt, filename}: ItemProps) => {
         <h2 className="mb-1 text-[1em] text-gray-100 font-semibold">
           {filename}
         </h2>
-        <p className="text-[0.9em] text-gray-100">
-          {new Date(createdAt).toLocaleString()}
-        </p>
+        <p className="text-[0.9em] text-gray-100">{createdAt}</p>
       </div>
     </div>
   );
